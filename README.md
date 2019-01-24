@@ -104,9 +104,28 @@ module.exports = {
       .use('vue-markdown-loader')
       .loader('vue-markdown-loader/lib/markdown-compiler')
       .options({
-        raw: true
+        vuemdrcPath: path.resolve(__dirname, '.vuemdrc.js')
       })
   }
+}
+```
+
+In your `.vuemdrc.js` file:
+
+```js
+var mdItAnchor = require('markdown-it-anchor')
+var slugify = require('transliteration').slugify
+
+module.exports = {
+  raw: true,
+  use: [
+    [mdItAnchor, {
+      level: 2,
+      slugify: slugify,
+      permalink: true,
+      permalinkBefore: true
+    }]
+  ]
 }
 ```
 
